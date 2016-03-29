@@ -1,0 +1,52 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block header %}
+    <!-- Jumbotron Header -->
+    <header class="jumbotron hero-spacer">
+        <h1>A Warm Welcome!</h1>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo
+            aspernatur vitae fugiat numquam repellat.</p>
+
+        <p><a class="btn btn-primary btn-large">Call to action!</a>
+        </p>
+    </header>
+
+    <hr>
+{% endblock %}
+
+{% block content %}
+    {% if products %}
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Latest Features</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Page Features -->
+        <div class="row text-center">
+            {% for product in products %}
+                <div class="col-md-3 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <img src="{{ product.image.src }}" alt="{{ product.image.alt }}">
+
+                        <div class="caption">
+                            <h3>{{ product.name }}</h3>
+
+                            <p>{{ product.description }}</p>
+
+                            <p>
+                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+
+        <hr>
+    {% endif %}
+{% endblock %}
