@@ -9,7 +9,7 @@ namespace App\Action;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-class HomePageAction extends AbstractPageAction
+class StaticPageAction extends AbstractPageAction
 {
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
     {

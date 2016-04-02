@@ -1,0 +1,15 @@
+{% extends "layout/layout.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <h1>{{ title }}</h1>
+
+        <p><img src="https://placeholdit.imgix.net/~text?txtsize=75&w=1920&h=600&txt=Hi+there!" alt="Hi there!" class="img-responsive"></p>
+
+        <p>{{ content }}</p>
+    </div>
+
+    <hr>
+{% endblock %}

@@ -5,34 +5,40 @@ return [
         'invokables' => [
             Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\FastRouteRouter::class,
         ],
-        // Map middleware -> factories here
         'factories' => [
-            App\Action\HomePageAction::class => [App\Action\HomePageAction::class, 'factory']
+            App\Action\StaticPageAction::class => [App\Action\StaticPageAction::class, 'factory'],
+            App\Action\DynamicPageAction::class => [App\Action\DynamicPageAction::class, 'factory'],
         ],
     ],
     'routes' => [
         [
             'name' => 'home',
             'path' => '/',
-            'middleware' => App\Action\HomePageAction::class,
+            'middleware' => App\Action\StaticPageAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'about',
             'path' => '/about',
-            'middleware' => App\Action\HomePageAction::class,
+            'middleware' => App\Action\StaticPageAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'services',
             'path' => '/services',
-            'middleware' => App\Action\HomePageAction::class,
+            'middleware' => App\Action\StaticPageAction::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'contact',
             'path' => '/contact',
-            'middleware' => App\Action\HomePageAction::class,
+            'middleware' => App\Action\StaticPageAction::class,
+            'allowed_methods' => ['GET'],
+        ],
+        [
+            'name' => 'dynamic-page',
+            'path' => '/{name:.+}',
+            'middleware' => App\Action\DynamicPageAction::class,
             'allowed_methods' => ['GET'],
         ],
     ],

@@ -6,11 +6,11 @@
 
 namespace App\Action;
 
+use Interop\Container\ContainerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
-use Zend\ServiceManager\ServiceManager;
 
 abstract class AbstractPageAction
 {
@@ -30,11 +30,11 @@ abstract class AbstractPageAction
         $this->renderer = $renderer;
     }
 
-    public static function factory(ServiceManager $serviceManager)
+    public static function factory(ContainerInterface $container)
     {
         return new static(
-            $serviceManager->get(RouterInterface::class),
-            $serviceManager->get(TemplateRendererInterface::class)
+            $container->get(RouterInterface::class),
+            $container->get(TemplateRendererInterface::class)
         );
     }
 
