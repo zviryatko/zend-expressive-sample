@@ -1,0 +1,6 @@
+{# awailable types; success, info, warning, danger #}
+{% for type, messages in errors %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type|escape("html_attr") }}" role="alert">{{ message|raw }}</div>
+    {% endfor %}
+{% endfor %}

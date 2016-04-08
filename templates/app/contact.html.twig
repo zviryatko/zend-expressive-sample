@@ -1,52 +1,99 @@
 {% extends "layout/layout.html.twig" %}
 
-{% block header %}
-    <!-- Jumbotron Header -->
-    <header class="jumbotron hero-spacer">
-        <h1>A Warm Welcome!</h1>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa, ipsam, eligendi, in quo sunt possimus non incidunt odit vero aliquid similique quaerat nam nobis illo
-            aspernatur vitae fugiat numquam repellat.</p>
-
-        <p><a class="btn btn-primary btn-large">Call to action!</a>
-        </p>
-    </header>
-
-    <hr>
-{% endblock %}
-
 {% block content %}
-    {% if products %}
-        <!-- Title -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h3>Latest Features</h3>
-            </div>
-        </div>
-        <!-- /.row -->
+    <div class="row">
+        <form class="form-horizontal col-md-8{{ element_error_class('contact_form') }}" action="{{ path() }}" method="post" id="contact_form">
 
-        <!-- Page Features -->
-        <div class="row text-center">
-            {% for product in products %}
-                <div class="col-md-3 col-sm-6 hero-feature">
-                    <div class="thumbnail">
-                        <img src="{{ product.image.src }}" alt="{{ product.image.alt }}">
+            <h2 class="text-center">Contact Us Today!</h2>
+            <hr>
 
-                        <div class="caption">
-                            <h3>{{ product.name }}</h3>
+            <div class="form-group{{ element_error_class('name') }}">
+                <label class="col-md-3 control-label" for="name">Name</label>
 
-                            <p>{{ product.description }}</p>
-
-                            <p>
-                                <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-                            </p>
-                        </div>
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input name="name" id="name" placeholder="John Doe" class="form-control" type="text">
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-        <!-- /.row -->
+            </div>
 
-        <hr>
-    {% endif %}
+            <div class="form-group{{ element_error_class('contact_form') }}">
+                <label class="col-md-3 control-label" for="email">E-Mail</label>
+
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                        <input name="email" id="email" placeholder=john.doe@gmail.com class="form-control" type="text" maxlength="100">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="website">Website</label>
+
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+                        <input name="website" id="website" placeholder="https://www.example.com" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="message">Message</label>
+
+                <div class="col-md-7 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                        <textarea class="form-control" name="message" id="message" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit..." maxlength="200"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label"></label>
+
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-lg btn-warning">Send <span class="glyphicon glyphicon-send"></span></button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="col-md-4">
+            <h2>Info</h2>
+            <hr>
+
+            <p>
+                <strong><i class="glyphicon glyphicon-usd text-success"></i> Sales center</strong><br>
+                <a href="tel:+15551234001"><i class="glyphicon glyphicon-earphone"></i> (555) 123-4001</a><br>
+                <a href="mailto:sales@company.info"><i class="glyphicon glyphicon-envelope"></i> sales@company.info</a>
+            </p>
+
+            <p>
+                <strong><i class="glyphicon glyphicon-user text-info"></i> Client support</strong><br>
+                <a href="tel:+15551234002"><i class="glyphicon glyphicon-earphone"></i> (555) 123-4002</a><br>
+                <a href="mailto:support@company.info"><i class="glyphicon glyphicon-envelope"></i> support@company.info</a>
+            </p>
+
+            <address>
+                <strong>Horns & Hooves, Inc.</strong><br>
+                Danziger Str. 1<br>
+                Berlin, 10435<br>
+                <a href="tel:+15551234000"><i class="glyphicon glyphicon-earphone"></i> (555) 123-4000</a>
+            </address>
+
+            <p>
+                <a href="https://www.google.com/maps/place/Horns+%26+Hooves/@52.541109,13.412982,15z/data=!4m2!3m1!1s0x0:0x2d2f3d392874fe92" target="_blank">
+                    <img src="https://www.google.com/maps/vt/data=RfCSdfNZ0LFPrHSm0ublXdzhdrDFhtmHhN1u-gM,FrHdlpeVGZJQZSGVIo79MX3r-R7ddmG2jS4RY86gBUpRGfxJnu6fgJNahQp60dxnn8vfRspWt5WxFi4V7ZhIKlp2ZWuOAgJ6Fgtr24hJgU4LphdTjvEFAhErzZApZJNQCYgX" alt="">
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <script src="{{ asset('assets/contact.js', version=1.0) }}"></script>
 {% endblock %}

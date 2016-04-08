@@ -41,6 +41,12 @@ class DynamicPage
      */
     protected $content;
 
+    /**
+     * @param string $id
+     * @param string $alias
+     * @param string $title
+     * @param string $content
+     */
     public function __construct($id, $alias, $title, $content)
     {
         $this->id = $id;
@@ -48,7 +54,6 @@ class DynamicPage
         $this->title = $title;
         $this->content = $content;
     }
-
 
     /**
      * @return string

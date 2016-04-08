@@ -10,9 +10,8 @@ use App\Entity\DynamicPage;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Interop\Container\ContainerInterface;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Zend\Expressive\Container\Exception\NotFoundException;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -26,8 +25,11 @@ class DynamicPageAction extends AbstractPageAction
     /**
      * {@inheritdoc}
      */
-    public function __construct(RouterInterface $router, TemplateRendererInterface $renderer, EntityRepository $repository)
-    {
+    public function __construct(
+        RouterInterface $router,
+        TemplateRendererInterface $renderer,
+        EntityRepository $repository
+    ) {
         parent::__construct($router, $renderer);
         $this->repository = $repository;
     }
@@ -50,7 +52,7 @@ class DynamicPageAction extends AbstractPageAction
     /**
      * {@inheritdoc}
      */
-    public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         $alias = $this->router->match($request)->getMatchedParams()['name'];
         $page = $this->repository->findOneBy(['alias' => $alias]);

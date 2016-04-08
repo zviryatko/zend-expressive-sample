@@ -8,6 +8,7 @@ return [
         'factories' => [
             App\Action\StaticPageAction::class => [App\Action\StaticPageAction::class, 'factory'],
             App\Action\DynamicPageAction::class => [App\Action\DynamicPageAction::class, 'factory'],
+            App\Action\ContactPageAction::class => [App\Action\ContactPageAction::class, 'factory'],
         ],
     ],
     'routes' => [
@@ -32,8 +33,8 @@ return [
         [
             'name' => 'contact',
             'path' => '/contact',
-            'middleware' => App\Action\StaticPageAction::class,
-            'allowed_methods' => ['GET'],
+            'middleware' => App\Action\ContactPageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
         ],
         [
             'name' => 'dynamic-page',

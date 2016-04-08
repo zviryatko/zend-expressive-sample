@@ -6,12 +6,12 @@
 
 namespace App\Action;
 
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 class StaticPageAction extends AbstractPageAction
 {
-    public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         $route = $this->router->match($request);
         $routeName = $route->getMatchedRouteName();

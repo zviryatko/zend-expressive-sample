@@ -7,8 +7,8 @@
 namespace App\Action;
 
 use Interop\Container\ContainerInterface;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -38,5 +38,5 @@ abstract class AbstractPageAction
         );
     }
 
-    abstract public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next);
+    abstract public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next);
 }

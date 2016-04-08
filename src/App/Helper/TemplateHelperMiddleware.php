@@ -6,6 +6,7 @@
 
 namespace App\Helper;
 
+use App\Service\AlertsInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,10 +18,15 @@ class TemplateHelperMiddleware
      */
     protected $renderer;
 
+    /**
+     * @var \App\Service\AlertsInterface
+     */
+    protected $alerts;
 
-    public function __construct(TemplateRendererInterface $renderer)
+    public function __construct(TemplateRendererInterface $renderer, AlertsInterface $alerts)
     {
         $this->renderer = $renderer;
+        $this->alerts = $alerts;
     }
 
     /**
@@ -38,6 +44,7 @@ class TemplateHelperMiddleware
     {
         $this->renderer->addDefaultParam(TemplateRendererInterface::TEMPLATE_ALL, 'request', $request);
         $this->renderer->addDefaultParam(TemplateRendererInterface::TEMPLATE_ALL, 'response', $response);
+        $this->renderer->addDefaultParam(TemplateRendererInterface::TEMPLATE_ALL, 'errors', $this->alerts);
         return $next($request, $response);
     }
 }
