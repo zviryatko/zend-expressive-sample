@@ -14,6 +14,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
+use Zend\Mail\Exception\ExceptionInterface;
+use Zend\Mail\Message;
+use Zend\Mail\Transport\TransportInterface;
 
 class ContactPageAction extends AbstractPageAction
 {
@@ -23,15 +26,22 @@ class ContactPageAction extends AbstractPageAction
     protected $alerts;
 
     /**
+     * @var \Zend\Mail\Transport\TransportInterface
+     */
+    protected $transport;
+
+    /**
      * {@inheritdoc}
      */
     public function __construct(
         RouterInterface $router,
         TemplateRendererInterface $renderer,
-        AlertsInterface $alerts
+        AlertsInterface $alerts,
+        TransportInterface $transport
     ) {
         parent::__construct($router, $renderer);
         $this->alerts = $alerts;
+        $this->transport = $transport;
     }
 
     /**
@@ -42,7 +52,8 @@ class ContactPageAction extends AbstractPageAction
         return new static(
             $container->get(RouterInterface::class),
             $container->get(TemplateRendererInterface::class),
-            $container->get(AlertsInterface::class)
+            $container->get(AlertsInterface::class),
+            $container->get(TransportInterface::class)
         );
     }
 
@@ -50,13 +61,34 @@ class ContactPageAction extends AbstractPageAction
     {
         $post = $request->getParsedBody() ?: [];
         if ($request->getMethod() === 'POST') {
-            $this->validateData($post);
+            if ($this->validateData($post)) {
+                try {
+                    $this->transport->send(
+                        (new Message())
+                            ->addReplyTo($post['email'])
+                            ->addTo('sanya.davyskiba@gmail.com')
+                            ->setBody($post['message'])
+                            ->setSubject('Contact form message')
+                    );
+                } catch (ExceptionInterface $exception) {
+                    $this->alerts->addDanger(new Alert('Sorry, email was not sent because site administrator did not configure it =('));
+                }
+            }
         }
         $response->getBody()->write($this->renderer->render("app/contact.html.twig", ['post' => $post]));
         return $response;
     }
 
-    protected function validateData($data)
+    /**
+     * Validate contact form data and set alerts if fails.
+     *
+     * @param array $data
+     *   Contact form post data.
+     *
+     * @return bool
+     *   false if validation fails.
+     */
+    protected function validateData(array $data)
     {
         $hasError = false;
         $fields = [
@@ -79,12 +111,14 @@ class ContactPageAction extends AbstractPageAction
         }
 
         if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->alerts->addDanger(new FormAlert('Email address is not valid' . ($hasError ? ', too' : '') . '.', 'email'));
+            $this->alerts->addDanger(new FormAlert('Email address is not valid' . ($hasError ? ', too' : '') . '.',
+                'email'));
             $hasError = true;
         }
 
         if (!empty($data['website']) && !filter_var($data['website'], FILTER_VALIDATE_URL)) {
-            $this->alerts->addDanger(new FormAlert('URL address is not valid'. ($hasError ? ', too' : ''). '.', 'website'));
+            $this->alerts->addDanger(new FormAlert('URL address is not valid' . ($hasError ? ', too' : '') . '.',
+                'website'));
             $hasError = true;
         }
 
@@ -98,6 +132,6 @@ class ContactPageAction extends AbstractPageAction
             $this->alerts->addSuccess(new Alert('Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.'));
         }
 
-        return $hasError;
+        return !$hasError;
     }
 }
