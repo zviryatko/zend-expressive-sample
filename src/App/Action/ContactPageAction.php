@@ -15,7 +15,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class ContactPageAction extends StaticPageAction
+class ContactPageAction extends AbstractPageAction
 {
     /**
      * @var \App\Service\AlertsInterface
@@ -48,10 +48,12 @@ class ContactPageAction extends StaticPageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
+        $post = $request->getParsedBody() ?: [];
         if ($request->getMethod() === 'POST') {
-            $this->validateData($request->getParsedBody() ?: []);
+            $this->validateData($post);
         }
-        return parent::__invoke($request, $response, $next);
+        $response->getBody()->write($this->renderer->render("app/contact.html.twig", ['post' => $post]));
+        return $response;
     }
 
     protected function validateData($data)
@@ -71,23 +73,23 @@ class ContactPageAction extends StaticPageAction
         }
 
         if (!empty($data['name']) && (strlen($data['name']) < 3 || strlen($data['name']) > 100)) {
-            $this->alerts->addDanger(new FormAlert(sprintf("Name is not valid, we think you can't have a name with %d symbols",
+            $this->alerts->addDanger(new FormAlert(sprintf("Name is not valid, we think you can't have a name with %d symbols.",
                 strlen($data['name'])), 'name'));
             $hasError = true;
         }
 
         if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->alerts->addDanger(new FormAlert('Email address is not valid', 'email'));
+            $this->alerts->addDanger(new FormAlert('Email address is not valid' . ($hasError ? ', too' : '') . '.', 'email'));
             $hasError = true;
         }
 
         if (!empty($data['website']) && !filter_var($data['website'], FILTER_VALIDATE_URL)) {
-            $this->alerts->addDanger(new FormAlert('URL address is not valid', 'website'));
+            $this->alerts->addDanger(new FormAlert('URL address is not valid'. ($hasError ? ', too' : ''). '.', 'website'));
             $hasError = true;
         }
 
         if (!empty($data['message']) && (strlen($data['message']) < 10 || strlen($data['message']) > 200)) {
-            $this->alerts->addDanger(new FormAlert('Please enter at least 10 characters and no more than 200',
+            $this->alerts->addDanger(new FormAlert('Please enter the message text at least 10 characters and no more than 200.',
                 'message'));
             $hasError = true;
         }
