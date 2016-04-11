@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "755d2eca8d3477174769a39e9b225bfd",
-    "content-hash": "5286082eb484e77102148c8c572bd806",
+    "hash": "4038ba9dd4a8f3c5bae11af8d4a72990",
+    "content-hash": "23b42f655275246a7cad6a1928d733a6",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -2349,123 +2349,6 @@
                 "zf2"
             ],
             "time": "2016-04-07 06:16:25"
-        },
-        {
-            "name": "flow/jsonpath",
-            "version": "0.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/FlowCommunications/JSONPath.git",
-                "reference": "e064398010089f9efb46044f85ee63c458ae89e1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/FlowCommunications/JSONPath/zipball/e064398010089f9efb46044f85ee63c458ae89e1",
-                "reference": "e064398010089f9efb46044f85ee63c458ae89e1",
-                "shasum": ""
-            },
-            "require-dev": {
-                "peekmo/jsonpath": "dev-master",
-                "phpunit/phpunit": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Flow\\JSONPath": "src/",
-                    "Flow\\JSONPath\\Test": "tests/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stephen Frank",
-                    "email": "stephen@flowsa.com"
-                }
-            ],
-            "description": "JSONPath implementation for parsing, searching and flattening arrays",
-            "time": "2015-10-12 07:39:47"
-        },
-        {
-            "name": "helmich/phpunit-json-assert",
-            "version": "v1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/martin-helmich/phpunit-json-assert.git",
-                "reference": "7905b15f38cd79ec614f721b74dd2885410bc005"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/martin-helmich/phpunit-json-assert/zipball/7905b15f38cd79ec614f721b74dd2885410bc005",
-                "reference": "7905b15f38cd79ec614f721b74dd2885410bc005",
-                "shasum": ""
-            },
-            "require": {
-                "flow/jsonpath": "^0.3.1",
-                "phpunit/phpunit": ">=4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Helmich\\JsonAssert\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Martin Helmich",
-                    "email": "m.helmich@mittwald.de"
-                }
-            ],
-            "description": "PHPUnit assertions for JSON documents",
-            "time": "2015-12-13 16:55:00"
-        },
-        {
-            "name": "helmich/phpunit-psr7-assert",
-            "version": "v1.1.2",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:martin-helmich/phpunit-psr7-assert.git",
-                "reference": "8bcd22df309298cee24826b741f520652ba0891d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/martin-helmich/phpunit-psr7-assert/zipball/8bcd22df309298cee24826b741f520652ba0891d",
-                "reference": "8bcd22df309298cee24826b741f520652ba0891d",
-                "shasum": ""
-            },
-            "require": {
-                "helmich/phpunit-json-assert": "^1.0",
-                "phpunit/phpunit": ">=4.8",
-                "psr/http-message": "^1.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "dev-master",
-                "guzzlehttp/psr7": "^1.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Helmich\\Psr7Assert\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Martin Helmich",
-                    "email": "m.helmich@mittwald.de"
-                }
-            ],
-            "description": "PHPUnit assertions for testing PSR7-compliant applications",
-            "time": "2016-02-04 14:11:13"
         },
         {
             "name": "myclabs/deep-copy",

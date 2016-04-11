@@ -18,8 +18,6 @@ use Zend\ServiceManager\ServiceManager;
 
 class WebTestCase extends \PHPUnit_Framework_TestCase
 {
-    use Psr7Assertions;
-
     /**
      * @var array
      */

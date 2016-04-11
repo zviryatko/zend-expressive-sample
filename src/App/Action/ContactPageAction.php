@@ -59,23 +59,21 @@ class ContactPageAction extends AbstractPageAction
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
-        $post = $request->getParsedBody() ?: [];
-        if ($request->getMethod() === 'POST') {
-            if ($this->validateData($post)) {
-                try {
-                    $this->transport->send(
-                        (new Message())
-                            ->addReplyTo($post['email'])
-                            ->addTo('sanya.davyskiba@gmail.com')
-                            ->setBody($post['message'])
-                            ->setSubject('Contact form message')
-                    );
-                } catch (ExceptionInterface $exception) {
-                    $this->alerts->addDanger(new Alert('Sorry, email was not sent because site administrator did not configure it =('));
-                }
+        $params = $request->getParsedBody() ?: [];
+        if ($request->getMethod() === 'POST' && ($data = $this->validateData($params)) !== FALSE && !empty($data['email'])) {
+            try {
+                $this->transport->send(
+                    (new Message())
+                        ->addReplyTo($data['email'])
+                        ->addTo('sanya.davyskiba@gmail.com')
+                        ->setBody($data['message'])
+                        ->setSubject('Contact form message')
+                );
+            } catch (ExceptionInterface $exception) {
+                $this->alerts->addDanger(new Alert('Sorry, email was not sent because site administrator did not configure it =('));
             }
         }
-        $response->getBody()->write($this->renderer->render("app/contact.html.twig", ['post' => $post]));
+        $response->getBody()->write($this->renderer->render("app/contact.html.twig", $params));
         return $response;
     }
 
@@ -132,6 +130,6 @@ class ContactPageAction extends AbstractPageAction
             $this->alerts->addSuccess(new Alert('Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.'));
         }
 
-        return !$hasError;
+        return $hasError ? $data : false;
     }
 }
