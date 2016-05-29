@@ -6,10 +6,9 @@
 
 namespace AppTest;
 
-use Helmich\Psr7Assert\Psr7Assertions;
-use Interop\Container\ContainerInterface;
 use Prophecy\Argument;
 use Psr\Http\Message\ResponseInterface;
+use Symfony\Component\DomCrawler\Crawler;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequest;
 use Zend\Diactoros\Uri;
@@ -19,21 +18,9 @@ use Zend\ServiceManager\ServiceManager;
 class WebTestCase extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var array
-     */
-    protected static $config;
-    /**
-     * @var ContainerInterface
+     * @var ServiceManager
      */
     protected static $container;
-    /**
-     * @var Application
-     */
-    protected $app;
-    /**
-     * @var ResponseInterface
-     */
-    protected $response;
 
     public static function setUpBeforeClass()
     {
@@ -79,5 +66,10 @@ class WebTestCase extends \PHPUnit_Framework_TestCase
         }
         // Invoke the request
         return $app($request, new Response());
+    }
+
+    protected function crawler(ResponseInterface $response)
+    {
+        return new Crawler((string) $response->getBody());
     }
 }

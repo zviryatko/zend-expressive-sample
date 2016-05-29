@@ -130,6 +130,6 @@ class ContactPageAction extends AbstractPageAction
             $this->alerts->addSuccess(new Alert('Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.'));
         }
 
-        return $hasError ? $data : false;
+        return $hasError ? false : $data;
     }
 }

@@ -29,14 +29,19 @@ class StaticPageActionTest extends WebTestCase
         $controller = new StaticPageAction($router, $renderer);
         $controller($request, $response, [$this, 'never']);
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals('html', $response->getBody()->getContents());
+        $this->assertEquals('html', (string) $response->getBody());
     }
 
     public function testStaticPagesAccess()
     {
-        foreach (['/', '/about', '/services'] as $url) {
+        foreach ([
+                     '/' => 'A Warm Welcome!',
+                     '/about' => 'About our company',
+                     '/services' => 'Latest Features'
+                 ] as $url => $page_title) {
             $response = $this->handleRequest('GET', $url);
             $this->assertEquals(200, $response->getStatusCode());
+            $this->assertEquals(1, $this->crawler($response)->filterXPath("html[contains(., \"{$page_title}\")]")->count(), "Expects that page {$url} contain title \"{$page_title}\"");
         }
     }
 }
