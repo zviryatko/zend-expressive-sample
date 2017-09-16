@@ -1,7 +1,5 @@
 <?php
 
-use App\Helper\AccessCheckMiddleware;
-
 return [
     'dependencies' => [
         'invokables' => [
@@ -14,6 +12,7 @@ return [
             App\Action\SignUpPageAction::class => [App\Action\SignUpPageAction::class, 'factory'],
             App\Action\SignInPageAction::class => [App\Action\SignInPageAction::class, 'factory'],
             App\Action\SignOutPageAction::class => [App\Action\SignOutPageAction::class, 'factory'],
+            App\Action\ProfilePageAction::class => [App\Action\ProfilePageAction::class, 'factory'],
         ],
     ],
     'routes' => [
@@ -58,6 +57,12 @@ return [
             'path' => '/sign-out',
             'middleware' => App\Action\SignOutPageAction::class,
             'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'profile',
+            'path' => '/profile',
+            'middleware' => App\Action\ProfilePageAction::class,
+            'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'dynamic-page',

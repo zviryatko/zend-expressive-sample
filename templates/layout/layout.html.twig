@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Heroic Features - Start Bootstrap Template</title>
+    <title>{% block title %}Home{% endblock %} | Simple App</title>
     <link href="https://cdn.jsdelivr.net/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     {#<link href="{{ asset('assets/heroic-features.css', version=2.0) }}" rel="stylesheet">#}
 
@@ -54,12 +54,12 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="sign-menu">
-                            <li><a href="{{ path('sign-in') }}">Login</a></li>
-                            <li><a href="{{ path('sign-up') }}">Sign Up</a></li>
+                            <li class="menu-item{{ active_class(request, 'sign-in') }}"><a href="{{ path('sign-in') }}">Login</a></li>
+                            <li class="menu-item{{ active_class(request, 'sign-up') }}"><a href="{{ path('sign-up') }}">Sign Up</a></li>
                         </ul>
                     </li>
                 {% else %}
-                    <li class="menu-item"><a>Hello, {{ username(request) }}</a></li>
+                    <li class="menu-item{{ active_class(request, 'profile') }}"><a href="{{ path('profile') }}">Hello, {{ username(request) }}</a></li>
                     <li class="menu-item"><a href="{{ path('sign-out') }}">Logout</a></li>
                 {% endif %}
             </ul>
@@ -90,8 +90,7 @@
 
 <script src="https://cdn.jsdelivr.net/jquery/2.2.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-{% block footer_scripts %}
-{% endblock %}
+{% block footer_scripts %}{% endblock %}
 </body>
 
 </html>

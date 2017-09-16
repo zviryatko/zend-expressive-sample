@@ -1,5 +1,7 @@
 {% extends "layout/layout.html.twig" %}
 
+{% block title %}Sign In{% endblock %}
+
 {% block content %}
     <div class="row">
         <form class="form-horizontal{{ element_error_class('sign_in_form') }}" action="{{ path() }}" method="post" id="sign_in_form">

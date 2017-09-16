@@ -1,5 +1,7 @@
 {% extends "layout/layout.html.twig" %}
 
+{% block title %}Contact{% endblock %}
+
 {% block content %}
     <div class="row">
         <form class="form-horizontal col-md-8{{ element_error_class('contact_form') }}" action="{{ path() }}" method="post" id="contact_form">
