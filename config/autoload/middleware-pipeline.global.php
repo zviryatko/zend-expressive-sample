@@ -9,6 +9,10 @@ return [
             Helper\ServerUrlMiddleware::class => Helper\ServerUrlMiddlewareFactory::class,
             Helper\UrlHelperMiddleware::class => Helper\UrlHelperMiddlewareFactory::class,
             AppHelper\TemplateHelperMiddleware::class => AppHelper\TemplateHelperMiddlewareFactory::class,
+            PSR7Sessions\Storageless\Http\SessionMiddleware::class => App\Container\SessionMiddlewareFactory::class,
+            AppHelper\AuthenticationMiddleware::class => [AppHelper\AuthenticationMiddleware::class, 'factory'],
+        ],
+        'invokables' => [
         ],
     ],
     // This can be used to seed pre- and/or post-routing middleware
@@ -41,6 +45,8 @@ return [
                 // - bootstrapping
                 // - pre-conditions
                 // - modifications to outgoing responses
+                PSR7Sessions\Storageless\Http\SessionMiddleware::class,
+                AppHelper\AuthenticationMiddleware::class,
                 Helper\ServerUrlMiddleware::class,
                 AppHelper\TemplateHelperMiddleware::class,
             ],

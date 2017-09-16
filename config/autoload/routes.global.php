@@ -1,5 +1,7 @@
 <?php
 
+use App\Helper\AccessCheckMiddleware;
+
 return [
     'dependencies' => [
         'invokables' => [
@@ -9,6 +11,9 @@ return [
             App\Action\StaticPageAction::class => [App\Action\StaticPageAction::class, 'factory'],
             App\Action\DynamicPageAction::class => [App\Action\DynamicPageAction::class, 'factory'],
             App\Action\ContactPageAction::class => [App\Action\ContactPageAction::class, 'factory'],
+            App\Action\SignUpPageAction::class => [App\Action\SignUpPageAction::class, 'factory'],
+            App\Action\SignInPageAction::class => [App\Action\SignInPageAction::class, 'factory'],
+            App\Action\SignOutPageAction::class => [App\Action\SignOutPageAction::class, 'factory'],
         ],
     ],
     'routes' => [
@@ -34,6 +39,24 @@ return [
             'name' => 'contact',
             'path' => '/contact',
             'middleware' => App\Action\ContactPageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'sign-up',
+            'path' => '/sign-up',
+            'middleware' => App\Action\SignUpPageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'sign-in',
+            'path' => '/sign-in',
+            'middleware' => App\Action\SignInPageAction::class,
+            'allowed_methods' => ['GET', 'POST'],
+        ],
+        [
+            'name' => 'sign-out',
+            'path' => '/sign-out',
+            'middleware' => App\Action\SignOutPageAction::class,
             'allowed_methods' => ['GET', 'POST'],
         ],
         [

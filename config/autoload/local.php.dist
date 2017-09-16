@@ -4,4 +4,6 @@ return [
     'debug' => true,
 
     'config_cache_enabled' => false,
+
+    'session_key' => 'put your key here',
 ];

@@ -12,8 +12,6 @@
             or head back to <a href="{{ path('home') }}">Home</a>.
         </p>
     {% else %}
-        <p>
-            {{ error }}
-        </p>
+        <pre>{{ error }}</pre>
     {% endif %}
 {% endblock %}
